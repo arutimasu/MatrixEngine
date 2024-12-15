@@ -1,4 +1,4 @@
-﻿  main.cpp
-  engine.vcxproj -> C:\Users\Пользователь\source\repos\engine\Debug\engine.exe
+﻿engine\Debug\Cube.obj : warning LNK4042: объект указан более одного раза; лишние не учитываются
+  engine.vcxproj -> C:\Users\Пользователь\Desktop\engine\Debug\engine.exe
   "pwsh.exe" не является внутренней или внешней
   командой, исполняемой программой или пакетным файлом.
