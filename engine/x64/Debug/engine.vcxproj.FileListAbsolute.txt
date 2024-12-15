@@ -1,0 +1,4 @@
+C:\Users\Пользователь\source\repos\engine\x64\Debug\freeglutd.dll
+C:\Users\Пользователь\source\repos\engine\x64\Debug\libGLESv2.dll
+C:\Users\Пользователь\source\repos\engine\x64\Debug\zlibd1.dll
+C:\Users\Пользователь\source\repos\engine\engine\x64\Debug\engine.vcxproj.Up2Date
