@@ -1,4 +1,6 @@
-﻿engine\Debug\Cube.obj : warning LNK4042: объект указан более одного раза; лишние не учитываются
+﻿  main.cpp
+C:\Users\Пользователь\Desktop\engine\main.cpp(107,23): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+C:\Users\Пользователь\Desktop\engine\main.cpp(108,23): warning C4244: =: преобразование "float" в "int", возможна потеря данных
   engine.vcxproj -> C:\Users\Пользователь\Desktop\engine\Debug\engine.exe
   "pwsh.exe" не является внутренней или внешней
   командой, исполняемой программой или пакетным файлом.

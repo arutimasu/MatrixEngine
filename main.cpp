@@ -9,14 +9,30 @@
 
 #include "ModelLoader.h"
 #include "Cube.h"
+#include "Wall.h"
+
 #include "Terrain.h"
 using namespace std;
-float cameraX = 0.0f;
-float cameraY = 3.0f;
+float cameraX = 4.0f;
+float cameraY = 1.0f;
 float cameraZ = 10.0f;
 
-Model mdl(2, 2, 2);
 
+int sectorX = 0;
+int sectorY = 0;
+int sectorZ = 0;
+
+Model mdl(2, 1, 2);
+
+bool RifleIsPicked = false;
+
+int WallMap[5][5] = {
+      2, 1, 1, 1 ,1,
+      2, 0 ,0, 0, 0,
+      2, 0, 0, 0, 0,
+      2, 0, 0, 0, 0,
+      2, 1, 1, 1, 1
+};
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
@@ -33,26 +49,64 @@ void display() {
     terr.render();
     // Рендеринг куба
     //renderCube(2,2,0);
+    /*for (size_t i = 0; i < 5; i++)
+    {
+        //Cube cube(5, 2, i+3);
+        Wall wall(false, 7, 1, i * 2);
+        wall.render();
+    }
     for (size_t i = 0; i < 5; i++)
     {
-        Cube cube(5, 2, i+3);
-        cube.render();
+        //Cube cube(5, 2, i+3);
+        Wall wall(false, -1, 1, i * 2);
+        wall.render();
     }
+    for (size_t i = 0; i < 5; i++)
+    {
+        //Cube cube(5, 2, i+3);
+        Wall wall(true, i*2, 1, 0);
+        wall.render();
+    }*/
 
+    for (int i = 0; i < 5; i++)
+        for (int j = 0; j < 5; j++)
+        {
+            if (WallMap[i][j] == 1) {
+                Wall wall(false, i * 2, 1, j * 2);//по сути раскидывает квадратики, превращая в карту. то есть задает каждому из них позицию. если убрать, то вся карта нарисуется в одном квадрате 32*32 и мы увидим один квадрат
+                wall.render();//рисуем квадратики на экран
+                
+            } //если встретили символ пробел, то рисуем 1й квадратик
+            if (WallMap[i][j] == 2) {
+                Wall wall(true, i * 2, 1, j * 2);//по сути раскидывает квадратики, превращая в карту. то есть задает каждому из них позицию. если убрать, то вся карта нарисуется в одном квадрате 32*32 и мы увидим один квадрат
+                wall.render();//рисуем квадратики на экран
+            } //если встретили символ пробел, то рисуем 1й квадратик
+
+
+          
+        }
     //renderModel();
    
-    mdl.render();
+    if ((sectorX != 1 || sectorZ != 1) && !RifleIsPicked) {
+        mdl.render();
+    }
+    else {
+        RifleIsPicked = true;
+        puts("You picked a modern assault rifle!\n");
+    }
 
     glutSwapBuffers();
 }
 
 void keyboard(unsigned char key, int x, int y) {
-    if (key == 'w') cameraZ -= 0.1f;
+    
+    if (key == 'w' && sectorZ > 0) cameraZ -= 0.1f;
     if (key == 's') cameraZ += 0.1f;
-    if (key == 'a') cameraX -= 0.1f;
-    if (key == 'd') cameraX += 0.1f;
+    if (key == 'a' && sectorX > 0) cameraX -= 0.1f;
+    if (key == 'd' && sectorX < 4) cameraX += 0.1f;
     glutPostRedisplay();
-    printf("X: %f Y: %f Z:%f\n", cameraX, cameraY, cameraZ);
+    sectorZ = cameraZ / 2;
+    sectorX = cameraX / 2;
+    printf("cam X: %d Y: %f Z: %d  \n", sectorX, cameraY, sectorZ);
 }
 
 void init() {
